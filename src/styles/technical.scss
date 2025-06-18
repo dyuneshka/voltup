@@ -1,0 +1,183 @@
+@import 'variables', 'mixins';
+
+.technical-conditions, .technical-approval {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px $shadow-color;
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-text-color;
+    margin-bottom: 1.5rem;
+  }
+
+  .otr-details, .tu-details {
+    margin-bottom: 1rem;
+
+    p {
+      font-size: 1rem;
+      color: $secondary-text-color;
+      margin: 0.5rem 0;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      color: $primary-text-color;
+      margin: 1rem 0 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 0.25rem 0;
+        color: $secondary-text-color;
+      }
+    }
+  }
+
+  .tu-form, .approval-actions {
+    margin-top: 1rem;
+
+    .signatory-row, .activity-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      .form-input {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        font-size: 1rem;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 5px $primary-color;
+        }
+      }
+    }
+
+    .add-button, .create-tu-button {
+      padding: 0.75rem 1.5rem;
+      background: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 0.5rem;
+
+      &:hover {
+        background: $secondary-color;
+      }
+    }
+  }
+
+  .approval-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .approve-button {
+      padding: 0.75rem 1.5rem;
+      background: $success-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken($success-color, 10%);
+      }
+    }
+
+    .reject-button {
+      padding: 0.75rem 1.5rem;
+      background: $warning-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken($warning-color, 10%);
+      }
+    }
+
+    .revise-button {
+      padding: 0.75rem 1.5rem;
+      background: $danger-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken($danger-color, 10%);
+      }
+    }
+
+    .form-input {
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 1rem;
+      min-height: 100px;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 5px $primary-color;
+      }
+    }
+  }
+
+  @include responsive(768px) {
+    padding: 1.5rem;
+    max-width: 600px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .otr-details p, .tu-details p, .tu-details li {
+      font-size: 0.875rem;
+    }
+
+    .tu-form .signatory-row, .tu-form .activity-row {
+      flex-direction: column;
+
+      .form-input {
+        width: 100%;
+      }
+    }
+
+    .approval-actions {
+      .approve-button, .reject-button, .revise-button {
+        width: 100%;
+      }
+    }
+  }
+
+  @include responsive(480px) {
+    padding: 1rem;
+    max-width: 90%;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .otr-details h4, .tu-details h4 {
+      font-size: 1rem;
+    }
+  }
+}

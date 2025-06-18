@@ -1,0 +1,45 @@
+@import 'variables', 'mixins';
+
+.auth {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px $shadow-color;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    @include flex-center;
+    flex-direction: column;
+
+    input {
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px;
+      background: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: $secondary-color;
+      }
+    }
+  }
+
+  p {
+    font-size: 12px;
+    color: #666;
+  }
+}

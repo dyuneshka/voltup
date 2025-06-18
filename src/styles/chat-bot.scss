@@ -1,0 +1,77 @@
+@import 'variables', 'mixins';
+
+.chat-bot {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background: $background-color;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px $shadow-color;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: $primary-text-color;
+  }
+
+  .chat-history {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: $card-background;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+
+    p {
+      margin: 5px 0;
+      color: $primary-text-color;
+    }
+  }
+
+  .chat-input {
+    display: flex;
+    gap: 10px;
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: $secondary-color;
+      }
+    }
+  }
+
+  @include responsive(768px) {
+    margin: 10px;
+    padding: 15px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .chat-history {
+      height: 200px;
+      padding: 8px;
+    }
+
+    .chat-input input, .chat-input button {
+      padding: 8px;
+      font-size: 13px;
+    }
+  }
+}

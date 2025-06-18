@@ -1,0 +1,282 @@
+@import 'variables', 'mixins';
+
+.employee-panel {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px $shadow-color;
+
+  h2 {
+    font-size: 2rem;
+    color: $primary-text-color;
+    margin-bottom: 1.5rem;
+  }
+
+  .applications-list, .tp-stages, .asso-data, .object-data, .task-review {
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 1.5rem;
+      color: $primary-text-color;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .applications-list {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .application-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid $border-color;
+
+        span {
+          font-size: 1.125rem;
+          color: $secondary-text-color;
+        }
+
+        .select-button {
+          padding: 0.5rem 1rem;
+          background: $primary-color;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+
+          &:hover {
+            background: $secondary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .power-input {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .form-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 5px $primary-color;
+      }
+    }
+
+    .fill-stages-button {
+      padding: 0.75rem 1.5rem;
+      background: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: $secondary-color;
+      }
+    }
+  }
+
+  .manual-inputs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .form-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 5px $primary-color;
+      }
+    }
+  }
+
+  .stages-list {
+    list-style: none;
+    padding: 0;
+
+    .stage-item {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid $border-color;
+
+      span {
+        font-weight: bold;
+        color: $secondary-text-color;
+      }
+
+      strong {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .asso-form, .object-form {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    .form-input {
+      padding: 0.75rem;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 5px $primary-color;
+      }
+    }
+  }
+
+  .task-review {
+    .task-details {
+      margin-bottom: 1rem;
+
+      h4 {
+        font-size: 1.25rem;
+        color: $primary-text-color;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+        color: $secondary-text-color;
+        margin: 0.25rem 0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          padding: 0.25rem 0;
+          color: $secondary-text-color;
+        }
+      }
+    }
+
+    .accept-button {
+      padding: 0.75rem 1.5rem;
+      background: $success-color;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken($success-color, 10%);
+      }
+    }
+  }
+
+  .submit-review-button {
+    padding: 0.75rem 1.5rem;
+    background: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+
+    &:hover {
+      background: $secondary-color;
+    }
+  }
+
+  @include responsive(768px) {
+    padding: 1.5rem;
+    max-width: 700px;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .applications-list h3, .tp-stages h3, .asso-data h3, .object-data h3, .task-review h3 {
+      font-size: 1.25rem;
+    }
+
+    .applications-list .application-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      span {
+        font-size: 1rem;
+      }
+
+      .select-button {
+        width: 100%;
+      }
+    }
+
+    .power-input, .manual-inputs {
+      flex-direction: column;
+
+      .form-input, .fill-stages-button {
+        width: 100%;
+      }
+    }
+
+    .asso-form, .object-form {
+      grid-template-columns: 1fr;
+    }
+
+    .task-review .task-details h4 {
+      font-size: 1rem;
+    }
+
+    .submit-review-button, .accept-button {
+      width: 100%;
+    }
+  }
+
+  @include responsive(480px) {
+    padding: 1rem;
+    max-width: 90%;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .applications-list h3, .tp-stages h3, .asso-data h3, .object-data h3, .task-review h3 {
+      font-size: 1rem;
+    }
+
+    .applications-list .application-item span {
+      font-size: 0.875rem;
+    }
+
+    .power-input .form-input, .manual-inputs .form-input, .fill-stages-button, .asso-form .form-input, .object-form .form-input {
+      font-size: 0.875rem;
+    }
+
+    .task-review .task-details p, .task-review .task-details li {
+      font-size: 0.875rem;
+    }
+  }
+}
