@@ -10,10 +10,10 @@ const technicalSlice = createSlice({
       state.technicalConditions.push(action.payload);
     },
     approveTechnicalCondition: (state, action) => {
-      const tc = state.technicalConditions.find(tc => tc.id === action.payload.id);
-      if (tc) {
-        tc.status = action.payload.status;
-        tc.comment = action.payload.comment;
+      const { id, status, comment } = action.payload;
+      const tcIndex = state.technicalConditions.findIndex(tc => tc.id === id);
+      if (tcIndex !== -1) {
+        state.technicalConditions[tcIndex] = { ...state.technicalConditions[tcIndex], status, comment };
       }
     },
   },

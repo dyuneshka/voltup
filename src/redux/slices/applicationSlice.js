@@ -7,13 +7,12 @@ const applicationSlice = createSlice({
   },
   reducers: {
     verifyApplication: (state, action) => {
-      const appId = action.payload;
-      const appIndex = state.applications.findIndex(app => app.id === appId);
+      const { id, ...updates } = action.payload;
+      const appIndex = state.applications.findIndex(app => app.id === id);
       if (appIndex !== -1) {
-        state.applications[appIndex].verificationStatus = action.payload === appId ? null : action.payload;
+        state.applications[appIndex] = { ...state.applications[appIndex], ...updates };
       } else {
-        const result = Math.random() > 0.3 ? 'Успешно' : 'Ошибка в документах';
-        state.applications.push({ id: appId, verificationStatus: result });
+        state.applications.push({ id, ...updates, status: 'Заполнена' });
       }
     },
   },

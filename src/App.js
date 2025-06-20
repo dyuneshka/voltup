@@ -50,8 +50,8 @@ function App() {
           <Route path="/application" element={<ApplicationForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/review" element={<ApplicationReview />} />
-          <Route path="/technical" element={<TechnicalConditions />} />
-          <Route path="/approval" element={<TechnicalApproval />} />
+          <Route path="/approval/:appId" element={<TechnicalConditions />} />
+          <Route path="/technical" element={<TechnicalApproval />} />
           <Route path="/sso" element={<SsoProcess />} />
           <Route path="/contract" element={<ContractProcess />} />
           <Route path="/discrepancy" element={<DiscrepancyProcess />} />

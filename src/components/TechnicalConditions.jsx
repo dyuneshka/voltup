@@ -10,6 +10,7 @@ const TechnicalConditions = () => {
   const { appId } = useParams();
   const { user } = useSelector(state => state.auth);
   const { applications } = useSelector(state => state.application);
+  const { technicalConditions } = useSelector(state => state.technical);
   const [selectedOtr, setSelectedOtr] = useState(null);
   const [tuData, setTuData] = useState({
     signatories: [{ id: 1, name: '', position: '' }],
@@ -18,7 +19,9 @@ const TechnicalConditions = () => {
 
   useEffect(() => {
     const app = applications.find(a => a.id === parseInt(appId));
+    console.log('Application found:', app); // Отладка
     if (app && app.otr) {
+      console.log('OTR found:', app.otr); // Отладка
       setSelectedOtr(app.otr);
       setTuData(prev => ({
         ...prev,
@@ -42,19 +45,29 @@ const TechnicalConditions = () => {
   };
 
   const handleCreateTu = () => {
-    if (!selectedOtr) return;
+    if (!selectedOtr) {
+      alert('Выберите ОТР для создания ТУ!');
+      return;
+    }
+    const app = applications.find(a => a.id === parseInt(appId));
+    if (!app) {
+      alert('Заявка не найдена!');
+      return;
+    }
     const newTu = {
       id: Date.now(),
       applicationId: parseInt(appId),
       voltage: selectedOtr.soActivities?.[0]?.voltage || '10 кВ',
       status: 'Черновик',
-      conditions: `Технические условия для объекта ${selectedOtr.networkStructure?.[0]} с мощностью ${applications.find(a => a.id === parseInt(appId))?.power} кВт`,
+      conditions: `Технические условия для объекта ${selectedOtr.networkStructure?.[0]} с мощностью ${app.power} кВт`,
       signatories: tuData.signatories.filter(s => s.name && s.position),
       requiresSso: tuData.requiresSso,
       createdDate: '18.06.2025',
+      otrId: selectedOtr.id || Date.now(),
     };
+    console.log('Creating TU:', newTu); // Отладка
     dispatch(createTechnicalCondition(newTu));
-    navigate('/approval');
+    navigate(`/approval/${appId}`); // Переход с динамическим appId
   };
 
   if (!user || user.role !== 'employee') {
@@ -64,28 +77,27 @@ const TechnicalConditions = () => {
 
   return (
     <div className="technical-conditions">
-      <h2>Технические условия для заявки #{appId}</h2>
+      <h2>Подготовка ТУ для заявки #{appId}</h2>
+      {applications.find(a => a.id === parseInt(appId))?.otr && (
+        <div className="otr-selection">
+          <h3>Выберите ОТР</h3>
+          <select onChange={(e) => setSelectedOtr(JSON.parse(e.target.value))}>
+            <option value="">Выберите ОТР</option>
+            {applications
+              .find(a => a.id === parseInt(appId))
+              ?.otr && <option value={JSON.stringify(applications.find(a => a.id === parseInt(appId)).otr)}>
+              ОТР от {applications.find(a => a.id === parseInt(appId)).otr.tariffType}
+            </option>}
+          </select>
+        </div>
+      )}
       {selectedOtr && (
         <>
-          <div className="otr-details">
-            <p>Тип тарифа: {selectedOtr.tariffType || 'Тариф 1'}</p>
-            <p>Удаленность: {selectedOtr.distance || '25 км'}</p>
-            <p>Структура сети: {selectedOtr.networkStructure?.join(', ') || 'Точка 1, Подстанция A, ЛЭП 10 кВ'}</p>
-            <h4>Мероприятия СО</h4>
-            <ul>
-              {selectedOtr.soActivities?.map(act => (
-                <li key={act.id}>{act.section || 'Раздел 1'} - {act.voltage || '10 кВ'} - {act.length || '5 км'}</li>
-              )) || <li>Раздел 1 - 10 кВ - 5 км</li>}
-            </ul>
-            <h4>Мероприятия заявителя</h4>
-            <ul>
-              {selectedOtr.applicantActivities?.map(act => (
-                <li key={act.id}>{act.section || 'Раздел 2'}</li>
-              )) || <li>Раздел 2</li>}
-            </ul>
-          </div>
-          <div className="tu-form">
-            <h3>Подписывающие лица</h3>
+          <div className="tu-details">
+            <h3>Технические условия</h3>
+            <p>Напряжение: {selectedOtr.soActivities?.[0]?.voltage || '10 кВ'}</p>
+            <p>Структура сети: {selectedOtr.networkStructure?.join(', ') || 'Не заполнено'}</p>
+            <h4>Подписывающие лица</h4>
             {tuData.signatories.map((sign, idx) => (
               <div key={sign.id} className="signatory-row">
                 <input
@@ -93,14 +105,12 @@ const TechnicalConditions = () => {
                   value={sign.name}
                   onChange={(e) => handleSignatoryChange(idx, 'name', e.target.value)}
                   placeholder="ФИО"
-                  className="form-input"
                 />
                 <input
                   type="text"
                   value={sign.position}
                   onChange={(e) => handleSignatoryChange(idx, 'position', e.target.value)}
                   placeholder="Должность"
-                  className="form-input"
                 />
               </div>
             ))}
@@ -112,10 +122,10 @@ const TechnicalConditions = () => {
                 onChange={(e) => setTuData(prev => ({ ...prev, requiresSso: e.target.checked }))}
               /> Требуется заявка в ССО
             </label>
-            <button onClick={handleCreateTu} className="create-tu-button">
-              Создать документ ТУ
-            </button>
           </div>
+          <button onClick={handleCreateTu} className="create-tu-button">
+            Создать документ ТУ
+          </button>
         </>
       )}
     </div>
