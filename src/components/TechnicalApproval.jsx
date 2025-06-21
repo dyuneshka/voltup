@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { approveTechnicalCondition } from '../redux/slices/technicalSlice';
+import { approveTechnicalCondition, createContractProcess } from '../redux/slices/technicalSlice'; // Добавлен импорт
 import '../styles/technical.scss';
 
 const TechnicalApproval = () => {
@@ -27,6 +27,10 @@ const TechnicalApproval = () => {
     dispatch(approveTechnicalCondition({ id: tc.id, status, comment }));
     setResult(status);
     setComment('');
+    if (status === 'Согласовано') {
+      dispatch(createContractProcess({ id: tc.id, contractProcessStarted: true }));
+      navigate(`/contract/${appId}`);
+    }
   };
 
   if (!user || user.role !== 'employee') {

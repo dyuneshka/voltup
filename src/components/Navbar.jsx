@@ -24,7 +24,7 @@ const Navbar = () => {
           <>
             <li><Link to="/review">Проверка заявок</Link></li>
             <li><Link to="/technical">Технические условия</Link></li>
-            <li><Link to="/approval">Утверждение ТУ</Link></li>
+            <li><Link to="/approval/:appId"></Link>Утверждение ТУ</li>
             <li><Link to="/sso">ССО</Link></li>
             <li><Link to="/contract">Договоры</Link></li>
             <li><Link to="/discrepancy">Разногласия</Link></li>

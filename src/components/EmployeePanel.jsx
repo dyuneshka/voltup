@@ -192,7 +192,9 @@ const EmployeePanel = () => {
       alert('Заполните тип тарифа, удаленность и структуру сети!');
       return;
     }
-    updateApp(appId, { status: 'ОТР готово', otr: { ...app.otr } });
+    const updatedOtr = { ...app.otr, status: 'Готово' }; // Добавим статус ОТР
+    updateApp(appId, { status: 'ОТР готово', otr: updatedOtr });
+    dispatch(verifyApplication({ id: appId, status: 'ОТР готово', otr: updatedOtr })); // Передаем OTR
   };
 
   const updateApp = (appId, updates) => {

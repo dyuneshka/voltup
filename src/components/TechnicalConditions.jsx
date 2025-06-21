@@ -18,17 +18,21 @@ const TechnicalConditions = () => {
   });
 
   useEffect(() => {
+    console.log('Params:', { appId });
+    console.log('Applications:', applications);
+    console.log('Technical Conditions:', technicalConditions);
     const app = applications.find(a => a.id === parseInt(appId));
-    console.log('Application found:', app); // Отладка
+    console.log('Found application:', app);
     if (app && app.otr) {
-      console.log('OTR found:', app.otr); // Отладка
       setSelectedOtr(app.otr);
       setTuData(prev => ({
         ...prev,
         signatories: app.otr.signatories || [{ id: 1, name: 'Петров А.А.', position: 'Главный инженер' }],
       }));
+    } else {
+      console.log('No OTR found for appId:', appId);
     }
-  }, [appId, applications]);
+  }, [appId, applications, technicalConditions]);
 
   const handleSignatoryChange = (idx, field, value) => {
     setTuData(prev => ({
@@ -62,12 +66,17 @@ const TechnicalConditions = () => {
       conditions: `Технические условия для объекта ${selectedOtr.networkStructure?.[0]} с мощностью ${app.power} кВт`,
       signatories: tuData.signatories.filter(s => s.name && s.position),
       requiresSso: tuData.requiresSso,
-      createdDate: '18.06.2025',
+      createdDate: '21.06.2025',
       otrId: selectedOtr.id || Date.now(),
     };
-    console.log('Creating TU:', newTu); // Отладка
+    console.log('Dispatching createTechnicalCondition with:', newTu);
     dispatch(createTechnicalCondition(newTu));
-    navigate(`/approval/${appId}`); // Переход с динамическим appId
+    console.log('Technical Conditions after dispatch:', technicalConditions); // Проверка состояния
+    if (tuData.requiresSso) {
+      navigate(`/sso/${appId}`);
+    } else {
+      navigate(`/approval/${appId}`);
+    }
   };
 
   if (!user || user.role !== 'employee') {
@@ -78,7 +87,7 @@ const TechnicalConditions = () => {
   return (
     <div className="technical-conditions">
       <h2>Подготовка ТУ для заявки #{appId}</h2>
-      {applications.find(a => a.id === parseInt(appId))?.otr && (
+      {applications.find(a => a.id === parseInt(appId))?.otr ? (
         <div className="otr-selection">
           <h3>Выберите ОТР</h3>
           <select onChange={(e) => setSelectedOtr(JSON.parse(e.target.value))}>
@@ -90,6 +99,8 @@ const TechnicalConditions = () => {
             </option>}
           </select>
         </div>
+      ) : (
+        <p>Нет данных ОТР для заявки #{appId}. Убедитесь, что ОТР создан в EmployeePanel.</p>
       )}
       {selectedOtr && (
         <>

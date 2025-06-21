@@ -11,6 +11,7 @@ import TechnicalConditions from './components/TechnicalConditions';
 import TechnicalApproval from './components/TechnicalApproval';
 import SsoProcess from './components/SsoProcess';
 import ContractProcess from './components/ContractProcess';
+import PurProcess from './components/PurProcess'; // Новый компонент
 import DiscrepancyProcess from './components/DiscrepancyProcess';
 import ConstructionControl from './components/ConstructionControl';
 import TuExecutionCheck from './components/TuExecutionCheck';
@@ -28,7 +29,7 @@ import GeoPortal from './components/GeoPortal';
 import ChatBot from './components/ChatBot';
 import Payment from './components/Payment';
 import FeedbackForm from './components/FeedbackForm';
-import EmployeePanel from './components/EmployeePanel'
+import EmployeePanel from './components/EmployeePanel';
 import './styles/home.scss';
 import './styles/auth.scss';
 import './styles/dashboard.scss';
@@ -38,6 +39,8 @@ import './styles/payment.scss';
 import './styles/feedback.scss';
 import './styles/technical.scss';
 import './styles/contract.scss';
+import './styles/contract.scss';
+import './styles/pur-process.scss';
 
 function App() {
   return (
@@ -50,10 +53,11 @@ function App() {
           <Route path="/application" element={<ApplicationForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/review" element={<ApplicationReview />} />
-          <Route path="/approval/:appId" element={<TechnicalConditions />} />
-          <Route path="/technical" element={<TechnicalApproval />} />
-          <Route path="/sso" element={<SsoProcess />} />
-          <Route path="/contract" element={<ContractProcess />} />
+          <Route path="/technical/:appId" element={<TechnicalConditions />} />
+          <Route path="/approval/:appId" element={<TechnicalApproval />} />
+          <Route path="/sso/:appId" element={<SsoProcess />} />
+          <Route path="/contract/:appId" element={<ContractProcess />} />
+          <Route path="/pur/:appId" element={<PurProcess />} /> {/* Новый маршрут */}
           <Route path="/discrepancy" element={<DiscrepancyProcess />} />
           <Route path="/construction" element={<ConstructionControl />} />
           <Route path="/tu-execution" element={<TuExecutionCheck />} />
