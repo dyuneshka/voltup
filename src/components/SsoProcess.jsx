@@ -121,7 +121,7 @@ const SsoProcess = () => {
 
   return (
     <div className="sso-process">
-      <h2>Бизнес-процесс ССО для заявки #{appId}</h2>
+      <h2> Уведомление в ССО для заявки #{appId}</h2>
       {step === 'prepareNotification' && (
         <div className="notification-step">
           <h3>Подготовить уведомление о запросе в ССО</h3>

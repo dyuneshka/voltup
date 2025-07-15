@@ -1,0 +1,785 @@
+@import 'variables';
+@import 'mixins';
+
+.tu-approval-ia {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  // Основная информация о ТУ
+  .tu-overview {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 20px 40px rgba(40, 167, 69, 0.3);
+
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      .tu-id {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .material-icons {
+          font-size: 2.5rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        h3 {
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 0;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        .material-icons {
+          font-size: 1.2rem;
+        }
+
+        &.approved {
+          background: rgba(255, 255, 255, 0.3);
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        &.res-approved {
+          background: rgba(76, 175, 80, 0.3);
+          border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        &.pending {
+          background: rgba(158, 158, 158, 0.3);
+          border-color: rgba(158, 158, 158, 0.5);
+        }
+      }
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+
+      .overview-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-icon {
+          .material-icons {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+          }
+        }
+
+        .card-content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+          }
+
+          .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+          }
+
+          .priority-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+
+            &.high {
+              background: rgba(244, 67, 54, 0.3);
+              color: #ffcdd2;
+              border: 1px solid rgba(244, 67, 54, 0.5);
+            }
+
+            &.medium {
+              background: rgba(255, 152, 0, 0.3);
+              color: #ffe0b2;
+              border: 1px solid rgba(255, 152, 0, 0.5);
+            }
+
+            &.low {
+              background: rgba(255, 255, 255, 0.3);
+              color: white;
+              border: 1px solid rgba(255, 255, 255, 0.5);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Секции с деталями
+  .res-approval-section,
+  .tu-details-section,
+  .otr-details-section,
+  .signatories-section,
+  .documents-section,
+  .approval-action-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    .section-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f5f5f5;
+
+      h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+
+        .material-icons {
+          font-size: 1.5rem;
+          color: #28a745;
+        }
+      }
+    }
+  }
+
+  // Статус согласования в РЭС
+  .approval-status {
+    .status-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+
+      &.approved {
+        background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        border: 2px solid #4caf50;
+
+        .status-icon {
+          .material-icons {
+            color: #2e7d32;
+          }
+        }
+
+        .status-info {
+          .status-title {
+            color: #2e7d32;
+          }
+
+          .status-details {
+            color: #388e3c;
+          }
+        }
+      }
+
+      .status-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        .material-icons {
+          font-size: 1.5rem;
+        }
+      }
+
+      .status-info {
+        flex: 1;
+
+        .status-title {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+        }
+
+        .status-details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          font-size: 0.9rem;
+          font-weight: 500;
+
+          span {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  // Детали технических условий
+  .conditions-content {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 4px solid #28a745;
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+    }
+  }
+
+  // Данные ОТР
+  .otr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+
+    .otr-card {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      border-radius: 15px;
+      padding: 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3);
+      }
+
+      h5 {
+        margin: 0 0 1rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .otr-params {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .param-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.5rem 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+          }
+
+          span {
+            font-weight: 600;
+            color: white;
+          }
+        }
+      }
+
+      .network-chain {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .chain-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+
+          .chain-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 0.8rem;
+          }
+
+          .chain-point {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+          }
+        }
+      }
+
+      .activities-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .activity-item {
+          padding: 0.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+
+          .activity-name {
+            display: block;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+          }
+
+          .activity-details {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+          }
+        }
+      }
+    }
+  }
+
+  // Подписывающие лица
+  .signatories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+
+    .signatory-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      border-radius: 15px;
+      color: white;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(40, 167, 69, 0.3);
+      }
+
+      .signatory-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+
+        .material-icons {
+          font-size: 1.5rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
+
+      .signatory-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .signatory-name {
+          font-weight: 600;
+          font-size: 1rem;
+          color: white;
+        }
+
+        .signatory-position {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .signatory-department {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+  }
+
+  // Документы
+  .documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .document-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border: 1px solid rgba($border-color, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+      }
+
+      .document-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: $primary-color;
+        border-radius: 8px;
+
+        .material-icons {
+          font-size: 1.2rem;
+          color: white;
+        }
+      }
+
+      .document-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .document-name {
+          font-weight: 600;
+          color: $primary-text-color;
+        }
+
+        .document-meta {
+          font-size: 0.8rem;
+          color: $secondary-text-color;
+        }
+      }
+
+      .document-download {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #218838;
+          transform: scale(1.1);
+        }
+
+        .material-icons {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  // Действие утверждения
+  .approval-info {
+    margin-bottom: 2rem;
+
+    .info-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border-radius: 15px;
+      border-left: 4px solid #2196f3;
+
+      .info-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: #2196f3;
+        border-radius: 50%;
+
+        .material-icons {
+          font-size: 1.2rem;
+          color: white;
+        }
+      }
+
+      .info-content {
+        flex: 1;
+
+        h5 {
+          margin: 0 0 0.5rem 0;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #1976d2;
+        }
+
+        p {
+          margin: 0;
+          font-size: 1rem;
+          line-height: 1.5;
+          color: #424242;
+        }
+      }
+    }
+  }
+
+  .approval-button {
+    display: flex;
+    justify-content: center;
+
+    .approve-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 3rem;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4);
+      }
+
+      &:focus {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .material-icons {
+        font-size: 1.4rem;
+      }
+
+      .btn-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        text-align: left;
+
+        .btn-title {
+          font-size: 1.1rem;
+          font-weight: 700;
+        }
+
+        .btn-subtitle {
+          font-size: 0.9rem;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  // Результат утверждения
+  .result-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      .material-icons {
+        font-size: 2rem;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    }
+
+    .result-status {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+
+      .status-text {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .approval-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+
+        span {
+          display: block;
+        }
+      }
+    }
+
+    .result-message {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    &.approved {
+      border-left: 4px solid #28a745;
+
+      .result-header {
+        color: #28a745;
+      }
+
+      .result-status {
+        background: #e8f5e8;
+        border: 1px solid #c8e6c9;
+      }
+
+      .result-message {
+        background: #e8f5e8;
+        color: #2e7d32;
+      }
+    }
+  }
+}
+
+// Адаптивность
+@include responsive(768px) {
+  .tu-approval-ia {
+    padding: 1rem;
+
+    .tu-overview {
+      padding: 1.5rem;
+
+      .overview-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+
+        .tu-id h3 {
+          font-size: 1.5rem;
+        }
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .otr-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .signatories-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .overview-card,
+    .otr-card,
+    .signatory-card,
+    .document-item {
+      padding: 1rem;
+    }
+
+    .approval-button {
+      .approve-btn {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+
+        .btn-content {
+          .btn-title {
+            font-size: 1rem;
+          }
+
+          .btn-subtitle {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .tu-approval-ia {
+    .tu-overview {
+      .overview-header {
+        .tu-id {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+    }
+
+    .approval-info {
+      .info-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+    }
+  }
+} 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createTechnicalCondition } from '../redux/slices/technicalSlice';
+import EmployeeLayout from './EmployeeLayout';
 import '../styles/technical.scss';
 
 const TechnicalConditions = () => {
@@ -18,19 +19,13 @@ const TechnicalConditions = () => {
   });
 
   useEffect(() => {
-    console.log('Params:', { appId });
-    console.log('Applications:', applications);
-    console.log('Technical Conditions:', technicalConditions);
     const app = applications.find(a => a.id === parseInt(appId));
-    console.log('Found application:', app);
     if (app && app.otr) {
       setSelectedOtr(app.otr);
       setTuData(prev => ({
         ...prev,
         signatories: app.otr.signatories || [{ id: 1, name: 'Петров А.А.', position: 'Главный инженер' }],
       }));
-    } else {
-      console.log('No OTR found for appId:', appId);
     }
   }, [appId, applications, technicalConditions]);
 
@@ -46,6 +41,15 @@ const TechnicalConditions = () => {
       ...prev,
       signatories: [...prev.signatories, { id: prev.signatories.length + 1, name: '', position: '' }],
     }));
+  };
+
+  const handleRemoveSignatory = (idx) => {
+    if (tuData.signatories.length > 1) {
+      setTuData(prev => ({
+        ...prev,
+        signatories: prev.signatories.filter((_, i) => i !== idx),
+      }));
+    }
   };
 
   const handleCreateTu = () => {
@@ -69,13 +73,14 @@ const TechnicalConditions = () => {
       createdDate: '21.06.2025',
       otrId: selectedOtr.id || Date.now(),
     };
-    console.log('Dispatching createTechnicalCondition with:', newTu);
     dispatch(createTechnicalCondition(newTu));
-    console.log('Technical Conditions after dispatch:', technicalConditions); // Проверка состояния
     if (tuData.requiresSso) {
       navigate(`/sso/${appId}`);
     } else {
-      navigate(`/approval/${appId}`);
+      // Обновляем статус заявки на "ТУ создано"
+      const updatedApp = { ...currentApp, status: 'ТУ создано' };
+      // Здесь можно добавить dispatch для обновления статуса заявки
+      navigate(`/tu-approval-res/${appId}`);
     }
   };
 
@@ -84,62 +89,186 @@ const TechnicalConditions = () => {
     return null;
   }
 
+  const currentApp = applications.find(a => a.id === parseInt(appId));
+
   return (
-    <div className="technical-conditions">
-      <h2>Подготовка ТУ для заявки #{appId}</h2>
-      {applications.find(a => a.id === parseInt(appId))?.otr ? (
-        <div className="otr-selection">
-          <h3>Выберите ОТР</h3>
-          <select onChange={(e) => setSelectedOtr(JSON.parse(e.target.value))}>
-            <option value="">Выберите ОТР</option>
-            {applications
-              .find(a => a.id === parseInt(appId))
-              ?.otr && <option value={JSON.stringify(applications.find(a => a.id === parseInt(appId)).otr)}>
-              ОТР от {applications.find(a => a.id === parseInt(appId)).otr.tariffType}
-            </option>}
-          </select>
-        </div>
-      ) : (
-        <p>Нет данных ОТР для заявки #{appId}. Убедитесь, что ОТР создан в EmployeePanel.</p>
-      )}
-      {selectedOtr && (
-        <>
-          <div className="tu-details">
-            <h3>Технические условия</h3>
-            <p>Напряжение: {selectedOtr.soActivities?.[0]?.voltage || '10 кВ'}</p>
-            <p>Структура сети: {selectedOtr.networkStructure?.join(', ') || 'Не заполнено'}</p>
-            <h4>Подписывающие лица</h4>
-            {tuData.signatories.map((sign, idx) => (
-              <div key={sign.id} className="signatory-row">
-                <input
-                  type="text"
-                  value={sign.name}
-                  onChange={(e) => handleSignatoryChange(idx, 'name', e.target.value)}
-                  placeholder="ФИО"
-                />
-                <input
-                  type="text"
-                  value={sign.position}
-                  onChange={(e) => handleSignatoryChange(idx, 'position', e.target.value)}
-                  placeholder="Должность"
-                />
+    <EmployeeLayout 
+      title="Технические условия" 
+      subtitle={`Подготовка ТУ для заявки #${appId}`}
+    >
+      <div className="technical-conditions">
+        {/* Информация о заявке */}
+        {currentApp && (
+          <div className="application-info">
+            <div className="info-card">
+              <div className="card-header">
+                <div className="card-icon">
+                  <span className="material-icons">description</span>
+                </div>
+                <div className="card-title">Информация о заявке</div>
               </div>
-            ))}
-            <button onClick={handleAddSignatory} className="add-button">Добавить</button>
-            <label>
-              <input
-                type="checkbox"
-                checked={tuData.requiresSso}
-                onChange={(e) => setTuData(prev => ({ ...prev, requiresSso: e.target.checked }))}
-              /> Требуется заявка в ССО
-            </label>
+              <div className="card-content">
+                <div className="info-grid">
+                  <div className="info-item">
+                    <label>Заявитель:</label>
+                    <span>{currentApp.applicant}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Мощность:</label>
+                    <span>{currentApp.power}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Напряжение:</label>
+                    <span>{currentApp.voltage}</span>
+                  </div>
+                  <div className="info-item">
+                    <label>Тип:</label>
+                    <span>{currentApp.type}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <button onClick={handleCreateTu} className="create-tu-button">
-            Создать документ ТУ
-          </button>
-        </>
-      )}
-    </div>
+        )}
+
+        {/* Выбор ОТР */}
+        <div className="form-section">
+          <h3 className="section-title">
+            <span className="material-icons">assignment</span>
+            Выбор ОТР
+          </h3>
+          
+          {currentApp?.otr ? (
+            <div className="otr-selection">
+              <div className="select-wrapper">
+                <span className="material-icons">expand_more</span>
+                <select 
+                  onChange={(e) => setSelectedOtr(JSON.parse(e.target.value))}
+                  className="form-select"
+                >
+                  <option value="">Выберите ОТР</option>
+                  <option value={JSON.stringify(currentApp.otr)}>
+                    ОТР от {currentApp.otr.tariffType}
+                  </option>
+                </select>
+              </div>
+            </div>
+          ) : (
+            <div className="alert alert-warning">
+              <span className="material-icons">warning</span>
+              <p>Нет данных ОТР для заявки #{appId}. Убедитесь, что ОТР создан в EmployeePanel.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Детали ТУ */}
+        {selectedOtr && (
+          <>
+            <div className="form-section">
+              <h3 className="section-title">
+                <span className="material-icons">engineering</span>
+                Технические условия
+              </h3>
+              
+              <div className="tu-details">
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <label>Напряжение:</label>
+                    <span>{selectedOtr.soActivities?.[0]?.voltage || '10 кВ'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Структура сети:</label>
+                    <span>{selectedOtr.networkStructure?.join(', ') || 'Не заполнено'}</span>
+                  </div>
+                  <div className="detail-item">
+                    <label>Тип тарифа:</label>
+                    <span>{selectedOtr.tariffType}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Подписывающие лица */}
+            <div className="form-section">
+              <h3 className="section-title">
+                <span className="material-icons">person_add</span>
+                Подписывающие лица
+              </h3>
+              
+              <div className="signatories-list">
+                {tuData.signatories.map((sign, idx) => (
+                  <div key={sign.id} className="signatory-row">
+                    <div className="input-group">
+                      <label>ФИО</label>
+                      <input
+                        type="text"
+                        value={sign.name}
+                        onChange={(e) => handleSignatoryChange(idx, 'name', e.target.value)}
+                        placeholder="Введите ФИО"
+                        className="form-input"
+                      />
+                    </div>
+                    <div className="input-group">
+                      <label>Должность</label>
+                      <input
+                        type="text"
+                        value={sign.position}
+                        onChange={(e) => handleSignatoryChange(idx, 'position', e.target.value)}
+                        placeholder="Введите должность"
+                        className="form-input"
+                      />
+                    </div>
+                    {tuData.signatories.length > 1 && (
+                      <button 
+                        onClick={() => handleRemoveSignatory(idx)}
+                        className="remove-btn"
+                        type="button"
+                      >
+                        <span className="material-icons">delete</span>
+                      </button>
+                    )}
+                  </div>
+                ))}
+                
+                <button onClick={handleAddSignatory} className="add-signatory-btn">
+                  <span className="material-icons">add</span>
+                  Добавить подписывающее лицо
+                </button>
+              </div>
+            </div>
+
+            {/* Дополнительные опции */}
+            <div className="form-section">
+              <h3 className="section-title">
+                <span className="material-icons">settings</span>
+                Дополнительные опции
+              </h3>
+              
+              <div className="checkbox-group">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    checked={tuData.requiresSso}
+                    onChange={(e) => setTuData(prev => ({ ...prev, requiresSso: e.target.checked }))}
+                    className="form-checkbox"
+                  />
+                  <span className="checkmark"></span>
+                  <span className="checkbox-text">Требуется заявка в ССО</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Кнопка создания */}
+            <div className="form-actions">
+              <button onClick={handleCreateTu} className="create-tu-btn">
+                <span className="material-icons">create</span>
+                Создать документ ТУ
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </EmployeeLayout>
   );
 };
 

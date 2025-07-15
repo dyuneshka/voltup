@@ -1,54 +1,535 @@
-@import 'variables';
+@import 'variables', 'mixins';
 
 .geo-portal {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background: $background-color;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px $shadow-color;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
 
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+  @include responsive(768px) {
+    padding: 1rem;
   }
 
-  section {
-    margin-bottom: 20px;
+  @include responsive(480px) {
+    padding: 0.5rem;
+  }
 
-    h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
+  // Заголовок страницы
+  .page-header {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba($primary-color, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, $primary-color, $secondary-color);
     }
 
-    input, select {
-      padding: 8px;
-      margin-right: 10px;
-      border: 1px solid $border-color;
-      border-radius: 4px;
+    @include responsive(768px) {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    button {
-      padding: 8px 15px;
-      background: $primary-color;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    .header-content {
+      .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $primary-text-color;
+        margin: 0 0 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
 
-      &:hover {
-        background: $secondary-color;
+        @include responsive(768px) {
+          font-size: 1.5rem;
+        }
+
+        .material-icons {
+          color: $primary-color;
+          font-size: 1.2em;
+        }
+      }
+
+      .page-subtitle {
+        font-size: 1.1rem;
+        color: $secondary-text-color;
+        margin: 0;
+        line-height: 1.5;
+
+        @include responsive(768px) {
+          font-size: 1rem;
+        }
       }
     }
+  }
 
-    .map-placeholder {
-      margin-top: 10px;
-      height: 200px;
-      background: #f0f0f0;
-      border: 1px solid $border-color;
-      border-radius: 4px;
-      text-align: center;
-      line-height: 200px;
+  // Контент страницы
+  .page-content {
+    .portal-container {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 2rem;
+      height: calc(100vh - 200px);
+      min-height: 600px;
+
+      @include responsive(1024px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: auto;
+      }
+
+      // Боковая панель
+      .sidebar-panel {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba($border-color, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        @include responsive(1024px) {
+          height: auto;
+        }
+
+        // Навигация по вкладкам
+        .tab-navigation {
+          display: flex;
+          background: #f8f9fa;
+          border-bottom: 1px solid rgba($border-color, 0.3);
+
+          .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: $secondary-text-color;
+            font-weight: 500;
+            outline: none;
+
+            &:hover {
+              background: rgba($primary-color, 0.1);
+              color: $primary-color;
+            }
+
+            &.active {
+              background: white;
+              color: $primary-color;
+              border-bottom: 3px solid $primary-color;
+            }
+
+            .material-icons {
+              font-size: 1.5rem;
+            }
+          }
+        }
+
+        // Контент вкладок
+        .tab-content {
+          flex: 1;
+          padding: 1.5rem;
+          overflow-y: auto;
+
+          .tab-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: $primary-text-color;
+            margin: 0 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .material-icons {
+              color: $primary-color;
+            }
+          }
+
+          .form-group {
+            margin-bottom: 1.5rem;
+
+            label {
+              display: block;
+              font-size: 0.875rem;
+              font-weight: 600;
+              color: $primary-text-color;
+              margin-bottom: 0.5rem;
+            }
+
+            .form-input {
+              width: 100%;
+              padding: 0.75rem;
+              border: 2px solid rgba($border-color, 0.3);
+              border-radius: 8px;
+              font-size: 1rem;
+              transition: all 0.3s ease;
+              background: white;
+
+              &:focus {
+                outline: none;
+                border-color: $primary-color;
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+              }
+            }
+          }
+
+          .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+
+            @include responsive(480px) {
+              flex-direction: column;
+            }
+          }
+
+          .action-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            outline: none;
+
+            &.primary-btn {
+              background: linear-gradient(135deg, $primary-color, $secondary-color);
+              color: white;
+
+              &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 16px rgba($primary-color, 0.3);
+              }
+
+              &:focus {
+                box-shadow: 0 4px 16px rgba($primary-color, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.3);
+              }
+            }
+
+            &.secondary-btn {
+              background: #6c757d;
+              color: white;
+
+              &:hover {
+                background: #5a6268;
+                transform: translateY(-2px);
+              }
+
+              &:focus {
+                box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.3);
+              }
+            }
+
+            .material-icons {
+              font-size: 1.25rem;
+            }
+          }
+
+          .coordinates-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid rgba($border-color, 0.3);
+
+            h4 {
+              font-size: 0.875rem;
+              font-weight: 600;
+              color: $primary-text-color;
+              margin: 0 0 0.5rem 0;
+            }
+
+            .coords-box {
+              background: white;
+              border: 1px solid rgba($border-color, 0.3);
+              border-radius: 6px;
+              padding: 0.75rem;
+              font-family: 'Courier New', monospace;
+              font-size: 0.875rem;
+              color: $primary-text-color;
+              font-weight: 600;
+            }
+          }
+
+          .objects-list {
+            .no-objects {
+              text-align: center;
+              color: $secondary-text-color;
+              font-style: italic;
+              padding: 2rem;
+            }
+
+            .object-item {
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              padding: 1rem;
+              background: #f8f9fa;
+              border-radius: 8px;
+              margin-bottom: 0.75rem;
+              transition: all 0.3s ease;
+
+              &:hover {
+                background: rgba($primary-color, 0.1);
+                transform: translateX(4px);
+              }
+
+              .object-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, $primary-color, $secondary-color);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .material-icons {
+                  color: white;
+                  font-size: 1.25rem;
+                }
+              }
+
+              .object-info {
+                flex: 1;
+
+                .object-name {
+                  font-weight: 600;
+                  color: $primary-text-color;
+                  margin-bottom: 0.25rem;
+                }
+
+                .object-id {
+                  font-size: 0.875rem;
+                  color: $secondary-text-color;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Контейнер карты
+      .map-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba($border-color, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        .map-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          background: #f8f9fa;
+          border-bottom: 1px solid rgba($border-color, 0.3);
+
+          h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: $primary-text-color;
+            margin: 0;
+          }
+
+          .map-controls {
+            display: flex;
+            gap: 0.5rem;
+
+            .map-btn {
+              width: 40px;
+              height: 40px;
+              border: none;
+              border-radius: 8px;
+              background: white;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              outline: none;
+
+              &:hover {
+                background: $primary-color;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 16px rgba($primary-color, 0.3);
+              }
+
+              &:focus {
+                box-shadow: 0 4px 16px rgba($primary-color, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.3);
+              }
+
+              .material-icons {
+                font-size: 1.25rem;
+              }
+            }
+          }
+        }
+
+        .map {
+          flex: 1;
+          min-height: 400px;
+          border-radius: 0 0 12px 12px;
+        }
+      }
+    }
+  }
+}
+
+// Адаптивность
+@include responsive(1024px) {
+  .geo-portal {
+    .page-content {
+      .portal-container {
+        .sidebar-panel {
+          .tab-navigation {
+            .tab-btn {
+              padding: 0.75rem 0.5rem;
+              font-size: 0.875rem;
+
+              .material-icons {
+                font-size: 1.25rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include responsive(768px) {
+  .geo-portal {
+    .page-content {
+      .portal-container {
+        .sidebar-panel {
+          .tab-navigation {
+            .tab-btn {
+              padding: 0.5rem;
+              font-size: 0.8rem;
+
+              .material-icons {
+                font-size: 1rem;
+              }
+            }
+          }
+
+          .tab-content {
+            padding: 1rem;
+
+            .button-group {
+              flex-direction: column;
+            }
+
+            .action-btn {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+        }
+
+        .map-container {
+          .map-header {
+            padding: 0.75rem 1rem;
+
+            h3 {
+              font-size: 1rem;
+            }
+
+            .map-controls {
+              .map-btn {
+                width: 35px;
+                height: 35px;
+
+                .material-icons {
+                  font-size: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include responsive(480px) {
+  .geo-portal {
+    .page-content {
+      .portal-container {
+        gap: 1rem;
+
+        .sidebar-panel {
+          .tab-navigation {
+            .tab-btn {
+              padding: 0.5rem 0.25rem;
+              font-size: 0.75rem;
+
+              .material-icons {
+                font-size: 1rem;
+              }
+            }
+          }
+
+          .tab-content {
+            padding: 0.75rem;
+
+            .tab-title {
+              font-size: 1.125rem;
+            }
+
+            .form-group {
+              margin-bottom: 1rem;
+
+              .form-input {
+                padding: 0.6rem;
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+
+        .map-container {
+          .map-header {
+            padding: 0.5rem 0.75rem;
+
+            h3 {
+              font-size: 0.9rem;
+            }
+
+            .map-controls {
+              .map-btn {
+                width: 30px;
+                height: 30px;
+
+                .material-icons {
+                  font-size: 0.9rem;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

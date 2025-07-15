@@ -1,0 +1,408 @@
+@import 'variables';
+@import 'mixins';
+
+.contract-formation {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  // Секция выбора типа договора
+  .contract-type-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    .section-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f5f5f5;
+
+      h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+
+        .material-icons {
+          font-size: 1.5rem;
+          color: #667eea;
+        }
+      }
+    }
+
+    .contract-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+
+      .contract-type-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+
+        &:hover {
+          border-color: #667eea;
+          background: rgba(102, 126, 234, 0.05);
+          transform: translateY(-2px);
+        }
+
+        &.selected {
+          border-color: #667eea;
+          background: rgba(102, 126, 234, 0.1);
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .type-icon {
+          .material-icons {
+            font-size: 2.5rem;
+            color: #667eea;
+          }
+        }
+
+        .type-info {
+          flex: 1;
+
+          h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 0.5rem 0;
+          }
+
+          p {
+            font-size: 0.9rem;
+            color: $text-muted;
+            margin: 0;
+            line-height: 1.4;
+          }
+        }
+
+        .type-check {
+          .material-icons {
+            font-size: 1.5rem;
+            color: #667eea;
+
+            &.radio_button_unchecked {
+              color: #e0e0e0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Секция формы договора
+  .contract-form-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f5f5f5;
+
+      h4 {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #333;
+        margin: 0;
+
+        .material-icons {
+          font-size: 1.5rem;
+          color: #667eea;
+        }
+      }
+
+      .contract-type-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(102, 126, 234, 0.1);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #667eea;
+
+        .material-icons {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .contract-form {
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          &.full-width {
+            grid-column: 1 / -1;
+          }
+
+          label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+
+            &::after {
+              content: ' *';
+              color: #e74c3c;
+            }
+          }
+
+          input, textarea, select {
+            @include input;
+            font-size: 0.9rem;
+          }
+
+          textarea {
+            resize: vertical;
+            min-height: 80px;
+          }
+
+          .amount-input {
+            display: flex;
+            gap: 0.5rem;
+
+            input {
+              flex: 1;
+            }
+
+            select {
+              width: 80px;
+              padding: 0.75rem;
+              border: 1px solid $border-color;
+              border-radius: $border-radius;
+              background: white;
+              font-size: 0.9rem;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      // Секция документов
+      .documents-section {
+        margin-bottom: 2rem;
+
+        .section-header {
+          margin-bottom: 1.5rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid #f0f0f0;
+
+          h5 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+
+            .material-icons {
+              font-size: 1.2rem;
+              color: #667eea;
+            }
+          }
+        }
+
+        .file-upload-area {
+          margin-bottom: 1.5rem;
+
+          .file-input {
+            display: none;
+          }
+
+          .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            border: 2px dashed #e0e0e0;
+            border-radius: 15px;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: #667eea;
+              background: rgba(102, 126, 234, 0.05);
+            }
+
+            .material-icons {
+              font-size: 3rem;
+              color: #667eea;
+              margin-bottom: 1rem;
+            }
+
+            .upload-text {
+              text-align: center;
+
+              strong {
+                display: block;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 0.25rem;
+              }
+
+              span {
+                font-size: 0.9rem;
+                color: $text-muted;
+              }
+            }
+          }
+        }
+
+        .documents-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          .document-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: #667eea;
+              background: rgba(102, 126, 234, 0.05);
+            }
+
+            .document-icon {
+              .material-icons {
+                font-size: 2rem;
+                color: #667eea;
+              }
+            }
+
+            .document-info {
+              flex: 1;
+
+              .document-name {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 0.25rem;
+              }
+
+              .document-meta {
+                font-size: 0.8rem;
+                color: $text-muted;
+              }
+            }
+
+            .document-remove {
+              background: none;
+              border: none;
+              color: #e74c3c;
+              cursor: pointer;
+              padding: 0.5rem;
+              border-radius: 50%;
+              transition: all 0.3s ease;
+
+              &:hover {
+                background: rgba(231, 76, 60, 0.1);
+              }
+
+              .material-icons {
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+      }
+
+      // Действия формы
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2rem;
+        border-top: 2px solid #f5f5f5;
+
+        .btn-secondary {
+          @include button-secondary;
+        }
+
+        .btn-primary {
+          @include button-primary;
+        }
+      }
+    }
+  }
+
+  // Адаптивность
+  @include responsive(768px) {
+    padding: 1rem;
+
+    .contract-type-section {
+      padding: 1.5rem;
+
+      .contract-types-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contract-form-section {
+      padding: 1.5rem;
+
+      .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .contract-form {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+          flex-direction: column;
+          gap: 1rem;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+} 

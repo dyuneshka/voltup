@@ -1,0 +1,425 @@
+@import 'variables';
+@import 'mixins';
+
+.discrepancy-protocol {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    border-radius: 12px;
+    color: white;
+
+    .step-icon {
+      margin-right: 20px;
+      
+      .material-icons {
+        font-size: 48px;
+      }
+    }
+
+    .step-info {
+      h3 {
+        margin: 0 0 8px 0;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .protocol-form {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .form-section {
+      padding: 30px;
+      border-bottom: 1px solid $border-color;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      h4 {
+        margin: 0 0 20px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: $text-color;
+        display: flex;
+        align-items: center;
+
+        &::before {
+          content: '';
+          width: 4px;
+          height: 20px;
+          background: #FF9800;
+          margin-right: 12px;
+          border-radius: 2px;
+        }
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+
+        .form-group {
+          &.full-width {
+            grid-column: 1 / -1;
+          }
+
+          label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: $text-color;
+            font-size: 14px;
+          }
+
+          .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid $border-color;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+            &:focus {
+              outline: none;
+              border-color: #FF9800;
+              box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+            }
+          }
+
+          .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid $border-color;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.3s ease;
+
+            &:focus {
+              outline: none;
+              border-color: #FF9800;
+              box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+            }
+          }
+        }
+      }
+    }
+
+    .discrepancies-list {
+      .discrepancy-item {
+        background: $background-light;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid $border-color;
+
+        .discrepancy-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+
+          h5 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: $text-color;
+          }
+
+          .remove-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+
+            &:hover:not(:disabled) {
+              background: rgba(244, 67, 54, 0.1);
+            }
+
+            &:disabled {
+              color: $text-muted;
+              cursor: not-allowed;
+            }
+
+            .material-icons {
+              font-size: 18px;
+            }
+          }
+        }
+
+        .form-grid {
+          margin-bottom: 0;
+        }
+      }
+
+      .add-btn {
+        @include button-secondary;
+        width: 100%;
+        margin-top: 10px;
+        background: #FF9800;
+        color: white;
+
+        &:hover {
+          background: #F57C00;
+        }
+      }
+    }
+
+    .signatories-list {
+      .signatory-item {
+        background: $background-light;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border: 1px solid $border-color;
+
+        .signatory-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+
+          .signatory-organization {
+            font-weight: 600;
+            color: #FF9800;
+            font-size: 16px;
+          }
+
+          .signature-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .signature-checkbox {
+              width: 18px;
+              height: 18px;
+              accent-color: #FF9800;
+            }
+
+            label {
+              margin: 0;
+              font-weight: 500;
+              color: $text-color;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .form-grid {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .file-upload {
+      .file-input {
+        display: none;
+      }
+
+      .file-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        border: 2px dashed $border-color;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: $background-light;
+
+        &:hover {
+          border-color: #FF9800;
+          background: rgba(255, 152, 0, 0.05);
+        }
+
+        .material-icons {
+          margin-right: 10px;
+          font-size: 24px;
+          color: #FF9800;
+        }
+      }
+    }
+
+    .attachments-list {
+      margin-top: 20px;
+
+      .attachment-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        background: $background-light;
+        border-radius: 6px;
+        margin-bottom: 8px;
+
+        .material-icons {
+          margin-right: 10px;
+          color: #FF9800;
+        }
+
+        .file-name {
+          flex: 1;
+          font-weight: 500;
+        }
+
+        .file-size {
+          color: $text-muted;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .step-actions {
+      display: flex;
+      gap: 15px;
+      padding: 30px;
+      background: $background-light;
+      border-top: 1px solid $border-color;
+
+      .primary-btn {
+        @include button-primary;
+        flex: 1;
+        background: #FF9800;
+
+        &:hover {
+          background: #F57C00;
+        }
+      }
+
+      .approval-actions {
+        display: flex;
+        gap: 15px;
+        flex: 1;
+
+        .approve-btn {
+          @include button-primary;
+          flex: 1;
+          background: #4CAF50;
+
+          &:hover {
+            background: #388E3C;
+          }
+        }
+
+        .reject-btn {
+          @include button-primary;
+          flex: 1;
+          background: #f44336;
+
+          &:hover {
+            background: #d32f2f;
+          }
+        }
+      }
+
+      .secondary-btn {
+        @include button-secondary;
+        flex: 1;
+      }
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .discrepancy-protocol {
+    padding: 10px;
+
+    .step-header {
+      flex-direction: column;
+      text-align: center;
+
+      .step-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+
+    .protocol-form {
+      .form-section {
+        padding: 20px;
+
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+      }
+
+      .discrepancies-list {
+        .discrepancy-item {
+          padding: 15px;
+
+          .discrepancy-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+        }
+      }
+
+      .signatories-list {
+        .signatory-item {
+          padding: 15px;
+
+          .signatory-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+          }
+        }
+      }
+
+      .step-actions {
+        flex-direction: column;
+        padding: 20px;
+
+        .approval-actions {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .discrepancy-protocol {
+    .protocol-form {
+      .form-section {
+        padding: 15px;
+
+        h4 {
+          font-size: 18px;
+        }
+      }
+
+      .discrepancies-list,
+      .signatories-list {
+        .discrepancy-item,
+        .signatory-item {
+          padding: 12px;
+        }
+      }
+    }
+  }
+} 

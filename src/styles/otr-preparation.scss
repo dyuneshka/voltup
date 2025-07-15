@@ -1,0 +1,657 @@
+@import 'variables';
+@import 'mixins';
+
+.otr-preparation {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  // Информация о заявке
+  .application-info {
+    margin-bottom: 2rem;
+
+    .info-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      color: white;
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        .card-icon {
+          .material-icons {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+          }
+        }
+
+        .card-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      .card-content {
+        .info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+
+          .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            label {
+              font-size: 0.9rem;
+              color: rgba(255, 255, 255, 0.8);
+              font-weight: 500;
+            }
+
+            span {
+              font-size: 1.1rem;
+              font-weight: 600;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Секции формы
+  .form-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: $primary-text-color;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f5f5f5;
+
+      .material-icons {
+        font-size: 1.6rem;
+        color: $primary-color;
+      }
+    }
+
+    // Основные реквизиты
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+          font-size: 1rem;
+          font-weight: 600;
+          color: $primary-text-color;
+        }
+
+        .form-select,
+        .form-input {
+          padding: 0.75rem 1rem;
+          border: 2px solid rgba($border-color, 0.3);
+          border-radius: 12px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          background: white;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+          }
+        }
+
+        .form-select {
+          cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+          background-position: right 0.5rem center;
+          background-repeat: no-repeat;
+          background-size: 1.5em 1.5em;
+          padding-right: 2.5rem;
+        }
+      }
+    }
+
+    // Структура сети
+    .network-structure {
+      .fill-network-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .material-icons {
+          font-size: 1.2rem;
+        }
+      }
+
+      .network-chain {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border-left: 4px solid $primary-color;
+
+        h4 {
+          margin: 0 0 1rem 0;
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: $primary-text-color;
+        }
+
+        .chain-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+
+          .chain-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+            .chain-number {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 2rem;
+              height: 2rem;
+              background: $primary-color;
+              color: white;
+              border-radius: 50%;
+              font-weight: 600;
+              font-size: 0.9rem;
+            }
+
+            .chain-point {
+              font-weight: 500;
+              color: $primary-text-color;
+            }
+          }
+        }
+      }
+    }
+
+    // Мероприятия
+    .add-activity-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+      }
+
+      .material-icons {
+        font-size: 1.2rem;
+      }
+    }
+
+    .activities-table {
+      overflow-x: auto;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+        thead {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: white;
+
+          th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+          }
+        }
+
+        tbody {
+          tr {
+            border-bottom: 1px solid rgba($border-color, 0.3);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &:hover {
+              background: rgba($primary-color, 0.05);
+            }
+
+            td {
+              padding: 1rem;
+              font-size: 0.9rem;
+              color: $primary-text-color;
+
+              .remove-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                  background: #d32f2f;
+                  transform: scale(1.1);
+                }
+
+                .material-icons {
+                  font-size: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Подписывающие лица
+    .signatories-list {
+      .signatory-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 1rem;
+        align-items: end;
+        margin-bottom: 1rem;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 1px solid rgba($border-color, 0.3);
+
+        @include responsive(768px) {
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          label {
+            font-size: 0.9rem;
+            color: $secondary-text-color;
+            font-weight: 500;
+          }
+
+          .form-input {
+            padding: 0.75rem;
+            border: 2px solid rgba($border-color, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+
+            &:focus {
+              outline: none;
+              border-color: $primary-color;
+              box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+            }
+          }
+        }
+
+        .remove-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+          height: 2.5rem;
+          background: #f44336;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+          }
+
+          .material-icons {
+            font-size: 1.2rem;
+          }
+        }
+      }
+
+      .add-signatory-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #ff9800, #ff5722);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
+        }
+
+        .material-icons {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  // Действия формы
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+
+    .create-otr-btn {
+      padding: 1.25rem 2.5rem;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+      outline: none;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4);
+      }
+
+      &:focus {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(40, 167, 69, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
+
+      .material-icons {
+        font-size: 1.4rem;
+      }
+    }
+  }
+
+  // Модальные окна
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f5f5f5;
+
+        h3 {
+          margin: 0;
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: $primary-text-color;
+        }
+
+        .close-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2rem;
+          height: 2rem;
+          background: #f44336;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+          }
+
+          .material-icons {
+            font-size: 1.2rem;
+          }
+        }
+      }
+
+      .modal-body {
+        margin-bottom: 1.5rem;
+
+        p {
+          margin: 0 0 1rem 0;
+          font-size: 1rem;
+          color: $secondary-text-color;
+        }
+
+        .form-select {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 2px solid rgba($border-color, 0.3);
+          border-radius: 12px;
+          font-size: 1rem;
+          margin-bottom: 1rem;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+          }
+        }
+
+        .activity-options {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+
+          .activity-option {
+            padding: 1rem;
+            border: 2px solid rgba($border-color, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: $primary-color;
+              background: rgba($primary-color, 0.05);
+              transform: translateY(-2px);
+            }
+
+            .activity-name {
+              font-weight: 600;
+              color: $primary-text-color;
+              margin-bottom: 0.5rem;
+            }
+
+            .activity-details {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 1rem;
+              font-size: 0.9rem;
+              color: $secondary-text-color;
+
+              span {
+                background: rgba($border-color, 0.2);
+                padding: 0.25rem 0.5rem;
+                border-radius: 4px;
+              }
+            }
+          }
+        }
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+
+        .cancel-btn,
+        .confirm-btn {
+          padding: 0.75rem 1.5rem;
+          border: none;
+          border-radius: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .cancel-btn {
+          background: #f5f5f5;
+          color: $secondary-text-color;
+
+          &:hover {
+            background: #e0e0e0;
+          }
+        }
+
+        .confirm-btn {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: white;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Адаптивность
+@include responsive(768px) {
+  .otr-preparation {
+    padding: 1rem;
+
+    .application-info {
+      .info-card {
+        padding: 1.5rem;
+
+        .card-content {
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+
+    .form-section {
+      padding: 1.5rem;
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .activities-table {
+        table {
+          font-size: 0.8rem;
+
+          thead th,
+          tbody td {
+            padding: 0.75rem 0.5rem;
+          }
+        }
+      }
+    }
+
+    .modal-overlay {
+      .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+
+        .activity-options {
+          .activity-option {
+            .activity-details {
+              flex-direction: column;
+              gap: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+} 

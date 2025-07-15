@@ -1,47 +1,347 @@
 @import 'variables', 'mixins';
 
-.navbar {
-  background: $primary-color;
-  padding: 15px 20px;
-  box-shadow: 0 2px 6px $shadow-color;
+// Мобильная кнопка меню
+.mobile-menu-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba($primary-color, 0.3);
+  transition: all 0.3s ease;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+     &:hover {
+     transform: scale(1.1);
+     box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+   }
+
+   &:focus {
+     transform: scale(1.1);
+     box-shadow: 0 6px 20px rgba($primary-color, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3);
+   }
+
+  .material-icons {
+    font-size: 1.5rem;
+  }
+
+  @include responsive(768px) {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+  }
 
-    li {
-      list-style: none;
-      a {
-        list-style: none;
-        color: #fff;
-        text-decoration: none;
-        padding: 8px 15px;
-        border-radius: 6px;
-        transition: background 0.3s ease;
+  @include responsive(1024px) {
+    display: none;
+  }
+}
 
-        &:hover {
-          background: $hover-color;
-          color: $primary-text-color;
+// Боковое меню сотрудника
+.employee-sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  color: white;
+  z-index: 1000;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+
+  &.open {
+    left: 0;
+  }
+
+  @include responsive(1024px) {
+    left: 0;
+    width: 280px;
+  }
+
+  // Заголовок сайдбара
+  .sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.05);
+
+    .sidebar-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .material-icons {
+        font-size: 1.5rem;
+        color: $primary-color;
+      }
+    }
+
+    .close-sidebar {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+
+             &:hover {
+         background: rgba(255, 255, 255, 0.1);
+       }
+
+       &:focus {
+         background: rgba(255, 255, 255, 0.15);
+         box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+       }
+
+      .material-icons {
+        font-size: 1.25rem;
+      }
+
+      @include responsive(1024px) {
+        display: none;
+      }
+    }
+  }
+
+  // Контент сайдбара
+  .sidebar-content {
+    padding: 1rem 0;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Информация о пользователе
+  .user-info {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, $primary-color, $secondary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .material-icons {
+        font-size: 1.5rem;
+        color: white;
+      }
+    }
+
+    .user-details {
+      h3 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.875rem;
+        opacity: 0.8;
+        color: $primary-color;
+      }
+    }
+  }
+
+  // Навигация
+  .sidebar-nav {
+    flex: 1;
+    padding: 0 1rem;
+
+    .nav-section {
+      margin-bottom: 2rem;
+
+      .nav-section-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0 0 1rem 0;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        .material-icons {
+          font-size: 1rem;
+        }
+      }
+
+             .sidebar-link {
+         display: flex;
+         align-items: center;
+         gap: 0.75rem;
+         padding: 0.75rem 1rem;
+         color: rgba(255, 255, 255, 0.8);
+         text-decoration: none;
+         border-radius: 8px;
+         margin-bottom: 0.25rem;
+         transition: all 0.3s ease;
+         font-size: 0.9rem;
+         outline: none;
+
+                 &:hover {
+           background: rgba(255, 255, 255, 0.1);
+           color: white;
+           transform: translateX(5px);
+         }
+
+         &:focus {
+           background: rgba(255, 255, 255, 0.15);
+           color: white;
+           box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+         }
+
+        &.active {
+          background: linear-gradient(135deg, $primary-color, $secondary-color);
+          color: white;
+          box-shadow: 0 4px 16px rgba($primary-color, 0.3);
+        }
+
+        .material-icons {
+          font-size: 1.25rem;
+          opacity: 0.8;
+        }
+
+        span:not(.material-icons) {
+          font-weight: 500;
         }
       }
     }
   }
 
-  @include responsive(768px) {
-    padding: 10px;
+  // Футер сайдбара
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-    ul {
-      gap: 10px;
+         .logout-btn {
+       width: 100%;
+       padding: 0.75rem 1rem;
+       background: linear-gradient(135deg, #dc3545, #c82333);
+       color: white;
+       border: none;
+       border-radius: 8px;
+       cursor: pointer;
+       transition: all 0.3s ease;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 0.5rem;
+       font-weight: 600;
+       outline: none;
 
-      li a {
-        padding: 6px 12px;
-        font-size: 14px;
+             &:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+       }
+
+       &:focus {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3);
+       }
+
+      .material-icons {
+        font-size: 1.25rem;
       }
     }
   }
+}
+
+// Затемнение для мобильного меню
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+
+  @include responsive(1024px) {
+    display: none;
+  }
+}
+
+// Адаптивность для основного контента
+@include responsive(1024px) {
+  body {
+    margin-left: 280px;
+  }
+
+  .main-content {
+    margin-left: 280px;
+  }
+}
+
+// Исправление для мобильных устройств
+@include responsive(768px) {
+  .employee-sidebar {
+    .sidebar-content {
+      padding: 0.5rem 0;
+    }
+
+    .sidebar-nav {
+      padding: 0 0.5rem;
+
+      .nav-section {
+        margin-bottom: 1.5rem;
+
+        .sidebar-link {
+          padding: 0.5rem 0.75rem;
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
+
+// Анимации
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.sidebar-link {
+  animation: slideIn 0.3s ease;
 }

@@ -1,183 +1,422 @@
 @import 'variables', 'mixins';
 
-.technical-conditions, .technical-approval {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px $shadow-color;
+.technical-conditions {
+  // Информация о заявке
+  .application-info {
+    margin-bottom: 2rem;
 
-  h2 {
-    font-size: 2rem;
-    color: $primary-text-color;
-    margin-bottom: 1.5rem;
-  }
+    .info-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba($border-color, 0.3);
 
-  .otr-details, .tu-details {
-    margin-bottom: 1rem;
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
 
-    p {
-      font-size: 1rem;
-      color: $secondary-text-color;
-      margin: 0.5rem 0;
-    }
+        .card-icon {
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, $primary-color, $secondary-color);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-    h4 {
-      font-size: 1.25rem;
-      color: $primary-text-color;
-      margin: 1rem 0 0.5rem;
-    }
+          .material-icons {
+            color: white;
+            font-size: 1.25rem;
+          }
+        }
 
-    ul {
-      list-style: none;
-      padding: 0;
+        .card-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $primary-text-color;
+          margin: 0;
+        }
+      }
 
-      li {
-        padding: 0.25rem 0;
-        color: $secondary-text-color;
+      .card-content {
+        .info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1rem;
+
+          .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            label {
+              font-size: 0.875rem;
+              color: $secondary-text-color;
+              font-weight: 500;
+            }
+
+            span {
+              font-size: 1rem;
+              color: $primary-text-color;
+              font-weight: 600;
+            }
+          }
+        }
       }
     }
   }
 
-  .tu-form, .approval-actions {
-    margin-top: 1rem;
+  // Секции форм
+  .form-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba($border-color, 0.3);
 
-    .signatory-row, .activity-row {
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $primary-text-color;
+      margin: 0 0 1rem 0;
       display: flex;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
+      align-items: center;
+      gap: 0.5rem;
 
-      .form-input {
-        flex: 1;
-        padding: 0.75rem;
-        border: 1px solid $border-color;
-        border-radius: 6px;
-        font-size: 1rem;
+      .material-icons {
+        color: $primary-color;
+      }
+    }
 
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
-          box-shadow: 0 0 5px $primary-color;
+    // Выбор ОТР
+    .otr-selection {
+      .select-wrapper {
+        position: relative;
+
+        .material-icons {
+          position: absolute;
+          right: 1rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $secondary-text-color;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .form-select {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 2px solid rgba($border-color, 0.3);
+          border-radius: 8px;
+          font-size: 1rem;
+          background: white;
+          cursor: pointer;
+          appearance: none;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+          }
         }
       }
     }
 
-    .add-button, .create-tu-button {
-      padding: 0.75rem 1.5rem;
-      background: $primary-color;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 0.5rem;
+    // Алерты
+    .alert {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
 
-      &:hover {
-        background: $secondary-color;
+      &.alert-warning {
+        background: rgba(255, 193, 7, 0.1);
+        border: 1px solid rgba(255, 193, 7, 0.3);
+        color: #856404;
+
+        .material-icons {
+          color: #ffc107;
+        }
+      }
+
+      p {
+        margin: 0;
+        font-weight: 500;
+      }
+    }
+
+    // Детали ТУ
+    .tu-details {
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+
+        .detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          label {
+            font-size: 0.875rem;
+            color: $secondary-text-color;
+            font-weight: 500;
+          }
+
+          span {
+            font-size: 1rem;
+            color: $primary-text-color;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    // Подписывающие лица
+    .signatories-list {
+      .signatory-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        gap: 1rem;
+        align-items: end;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid rgba($border-color, 0.3);
+
+        @include responsive(768px) {
+          grid-template-columns: 1fr;
+          gap: 0.75rem;
+        }
+
+        .input-group {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          label {
+            font-size: 0.875rem;
+            color: $secondary-text-color;
+            font-weight: 500;
+          }
+
+          .form-input {
+            padding: 0.75rem;
+            border: 2px solid rgba($border-color, 0.3);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+
+            &:focus {
+              outline: none;
+              border-color: $primary-color;
+              box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+            }
+          }
+        }
+
+                 .remove-btn {
+           background: linear-gradient(135deg, #dc3545, #c82333);
+           color: white;
+           border: none;
+           border-radius: 50%;
+           width: 40px;
+           height: 40px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           cursor: pointer;
+           transition: all 0.3s ease;
+           outline: none;
+
+           &:hover {
+             transform: scale(1.1);
+             box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3);
+           }
+
+           &:focus {
+             transform: scale(1.1);
+             box-shadow: 0 4px 16px rgba(220, 53, 69, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.3);
+           }
+
+          .material-icons {
+            font-size: 1.25rem;
+          }
+        }
+      }
+
+             .add-signatory-btn {
+         width: 100%;
+         padding: 1rem;
+         background: linear-gradient(135deg, $primary-color, $secondary-color);
+         color: white;
+         border: none;
+         border-radius: 8px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         font-weight: 600;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         box-shadow: 0 4px 16px rgba($primary-color, 0.3);
+         outline: none;
+
+         &:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+         }
+
+         &:focus {
+           transform: translateY(-2px);
+           box-shadow: 0 6px 20px rgba($primary-color, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3);
+         }
+
+        .material-icons {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    // Чекбоксы
+    .checkbox-group {
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        padding: 0.75rem;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba($primary-color, 0.05);
+        }
+
+        .form-checkbox {
+          display: none;
+        }
+
+        .checkmark {
+          width: 20px;
+          height: 20px;
+          border: 2px solid rgba($border-color, 0.5);
+          border-radius: 4px;
+          position: relative;
+          transition: all 0.3s ease;
+          background: white;
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+        }
+
+                 .form-checkbox:checked + .checkmark {
+           background: linear-gradient(135deg, $primary-color, $secondary-color);
+           border-color: transparent;
+
+           &::after {
+             opacity: 1;
+           }
+         }
+
+         .form-checkbox:focus + .checkmark {
+           box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+         }
+
+        .checkbox-text {
+          font-weight: 500;
+          color: $primary-text-color;
+        }
       }
     }
   }
 
-  .approval-actions {
+  // Действия формы
+  .form-actions {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
 
-    .approve-button {
-      padding: 0.75rem 1.5rem;
-      background: $success-color;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
+         .create-tu-btn {
+       padding: 1rem 2rem;
+       background: linear-gradient(135deg, #28a745, #20c997);
+       color: white;
+       border: none;
+       border-radius: 25px;
+       cursor: pointer;
+       transition: all 0.3s ease;
+       font-weight: 600;
+       font-size: 1rem;
+       display: flex;
+       align-items: center;
+       gap: 0.5rem;
+       box-shadow: 0 4px 16px rgba(40, 167, 69, 0.3);
+       outline: none;
 
-      &:hover {
-        background: darken($success-color, 10%);
+       &:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+       }
+
+       &:focus {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.3);
+       }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
       }
-    }
 
-    .reject-button {
-      padding: 0.75rem 1.5rem;
-      background: $warning-color;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background: darken($warning-color, 10%);
-      }
-    }
-
-    .revise-button {
-      padding: 0.75rem 1.5rem;
-      background: $danger-color;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background: darken($danger-color, 10%);
-      }
-    }
-
-    .form-input {
-      padding: 0.75rem;
-      border: 1px solid $border-color;
-      border-radius: 6px;
-      font-size: 1rem;
-      min-height: 100px;
-
-      &:focus {
-        outline: none;
-        border-color: $primary-color;
-        box-shadow: 0 0 5px $primary-color;
+      .material-icons {
+        font-size: 1.25rem;
       }
     }
   }
+}
 
-  @include responsive(768px) {
-    padding: 1.5rem;
-    max-width: 600px;
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    .otr-details p, .tu-details p, .tu-details li {
-      font-size: 0.875rem;
-    }
-
-    .tu-form .signatory-row, .tu-form .activity-row {
-      flex-direction: column;
-
-      .form-input {
-        width: 100%;
+// Адаптивность
+@include responsive(768px) {
+  .technical-conditions {
+    .application-info {
+      .info-card {
+        .card-content {
+          .info-grid {
+            grid-template-columns: 1fr;
+          }
+        }
       }
     }
 
-    .approval-actions {
-      .approve-button, .reject-button, .revise-button {
-        width: 100%;
+    .form-section {
+      padding: 1rem;
+
+      .tu-details {
+        .details-grid {
+          grid-template-columns: 1fr;
+        }
       }
-    }
-  }
-
-  @include responsive(480px) {
-    padding: 1rem;
-    max-width: 90%;
-
-    h2 {
-      font-size: 1.25rem;
-    }
-
-    .otr-details h4, .tu-details h4 {
-      font-size: 1rem;
     }
   }
 }
